@@ -5,7 +5,7 @@
     <title>Brown Sports</title>
     <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href='main.css'>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
 </head>
 
 <body>  
