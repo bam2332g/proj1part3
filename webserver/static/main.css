@@ -1,0 +1,42 @@
+hr {
+    height:1px;
+    color: #333;
+}
+
+h2 {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    color: #FFFFFF;
+    padding-top: 35px;
+}
+
+#searchdiv {
+    padding-top: 40px;
+}
+
+div .jumbotron {
+    background-image:
+    linear-gradient(
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2)
+    ),
+    url('http://i.imgur.com/vwZ6YOz.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 800px;
+    background-blend-mode: luminosity;
+}
+
+input[type="text"] {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    background: white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    height: 20px;
+    border: 1px solid rgba(0,0,0,0.2);
+    width: 170px;
+    padding: 3px 23px 3px 8px;
+}
