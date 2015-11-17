@@ -39,14 +39,13 @@ app = Flask(__name__, template_folder=tmpl_dir)
 #
 #     DATABASEURI = "postgresql://ewu2493:foobar@w4111db1.cloudapp.net:5432/proj1part2"
 #
-DATABASEURI = "sqlite:///test.db"
-
+#DATABASEURI = "sqlite:///test.db"
+DATABASEURI = "postgresql://rk2658:879@w4111db1.cloudapp.net:5432/proj1part2"
 
 #
 # This line creates a database engine that knows how to connect to the URI above
 #
 engine = create_engine(DATABASEURI)
-
 
 #
 # START SQLITE SETUP CODE
@@ -63,12 +62,16 @@ engine = create_engine(DATABASEURI)
 # 
 # The setup code should be deleted once you switch to using the Part 2 postgresql database
 #
-engine.execute("""DROP TABLE IF EXISTS test;""")
-engine.execute("""CREATE TABLE IF NOT EXISTS test (
-  id serial,
-  name text
-);""")
-engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
+
+
+###engine.execute("""DROP TABLE IF EXISTS test;""")
+###engine.execute("""CREATE TABLE IF NOT EXISTS test (
+###  id serial,
+###  name text
+###);""")
+###engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
+
+
 #
 # END SQLITE SETUP CODE
 #
@@ -97,9 +100,9 @@ def teardown_request(exception):
   At the end of the web request, this makes sure to close the database connection.
   If you don't the database could run out of memory!
   """
-  try:
+try:
     g.conn.close()
-  except Exception as e:
+except Exception as e:
     pass
 
 
@@ -111,8 +114,7 @@ def teardown_request(exception):
 #
 #       @app.route("/foobar/", methods=["POST", "GET"])
 #
-# PROTIP: (the trailing / in the path is important)
-# 
+# PROTIP: (the trailing / in the path is important) # 
 # see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
 # see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
 # 
@@ -127,7 +129,7 @@ def index():
 
   See its API: http://flask.pocoo.org/docs/0.10/api/#incoming-request-data
   """
-
+  print('this is the dict')
   # DEBUG: this is debugging code to see what request looks like
   print request.args
 
@@ -135,10 +137,11 @@ def index():
   #
   # example of a database query
   #
-  cursor = g.conn.execute("SELECT name FROM test")
+  print('wassup')
+  cursor = g.conn.execute("SELECT *  FROM sportsleague2")
   names = []
   for result in cursor:
-    names.append(result['name'])  # can also be accessed using result[0]
+    names.append(result['leagueid'])  # can also be accessed using result[0]
   cursor.close()
 
   #
@@ -174,7 +177,7 @@ def index():
   # render_template looks in the templates/ folder for files.
   # for example, the below file reads template/index.html
   #
-  return render_template("index.php", **context)
+  return render_template("home.html", **context)
 
 #
 # This is an example of a different path.  You can see it at

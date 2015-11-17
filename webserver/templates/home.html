@@ -18,15 +18,19 @@
     </div>
     <div id="content">
         <div class="jumbotron"> 
-            <div class="greetings"> 
+            <div class="greetings container"> 
                 <h2>
-                    ask us about any current team or player from the nfl or nba
+                    what sports league would you like to know about?                    
                 </h2>   
-                <div class="col-sm-8 col-md-7 col-md-offset-5" style="min-width: 500px;" id="searchdiv">
-                    <form method="post" action=search.php?go></form>
-                        <input type="text" name="name" placeholder="Ex: Kobe Bryant...Lakers...">
-                        <input type="submit" value="Search" name="submit" class="btn btn-default">
-                    </form>
+                <div class="form-group col-md-offset-5" style="min-width: 500px" id="searchdiv">
+                    <label for="league_type"></label> 
+                    <br>    
+                    <select class="form-control col-md-1" style="width:auto" id="league-type">     
+                        {% for n in data %}
+                        <option> {{n}} </option> 
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-info" value="Submit Button">
                 </div>
             </div>  
         </div>
@@ -34,5 +38,6 @@
     <div id="footer">
     </div>
 </body>
+<script src="https://maxcdn.bootsrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
