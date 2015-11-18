@@ -130,9 +130,8 @@ def index():
 
   See its API: http://flask.pocoo.org/docs/0.10/api/#incoming-request-data
   """
-  print('this is the dict')
   # DEBUG: this is debugging code to see what request looks like
-  print request.args
+  #print request.args
 
 
   #
@@ -219,8 +218,8 @@ def nbaPlayer():
 def nbaPSearch():
   pName = request.form['pName']
   q = "SELECT playerid FROM player WHERE name = %s "
-  print(pName)
-  print q
+  #print(pName)
+  #print q
   pid = [] 
   
   cursor = g.conn.execute(q, (pName,))
@@ -229,13 +228,13 @@ def nbaPSearch():
   cursor.close()
 
   pid2 = pid[0]
-  print(pid2)
+  #print(pid2)
   q2 = "SELECT * FROM nbaplayerstats WHERE playerid = %s ORDER BY year"
-  print q2
+  #print q2
   cursor = g.conn.execute(q2, (pid2,))
   playerStats = []
   for result in cursor:
-      print(result['year'])
+      #print(result['year'])
       #playerStats.append(pName)
       ga = Decimal(result['games'])
       playerStats.append(result['year'])
@@ -256,7 +255,24 @@ def nbaPSearch():
       playerStats.append(result['mvp'])
   cursor.close()
 
-  context = dict(data = playerStats, player=pName)
+  q3 = "SELECT name FROM topplayer t1 WHERE t1.topplayerid = (SELECT topplayerid FROM predictions t2 WHERE t2.playerid= %s)"
+  cursor = g.conn.execute(q3, (pid2,))
+  playerPredictions = []
+  for result in cursor:
+    #print(result[0])
+    playerPredictions.append(result[0])
+  cursor.close()
+  
+  q4 = "SELECT * FROM predictions  WHERE playerid= %s"
+
+  cursor = g.conn.execute(q4, (pid2,))
+  for result in cursor:
+      playerPredictions.append(result['similarityscore'])
+      playerPredictions.append(result['probofallstar'])
+      playerPredictions.append(result['probofmvp'])
+  cursor.close()
+
+  context = dict(data = playerStats, player=pName, preds=playerPredictions)
   return render_template("nba-player-stats.html", **context)
 
 @app.route('/nba-team.html', methods=["POST", "GET"])
@@ -284,9 +300,9 @@ def nbaTSearch():
   cursor.close()
 
   tid2 = tid[0]
-  print(tid2)
+  #print(tid2)
   q2 = "SELECT * FROM player WHERE  teamid = %s AND leagueid = 1"
-  print q2
+  #print q2
   cursor = g.conn.execute(q2, (tid2,))
   teamRoster = []
   for result in cursor:
@@ -295,7 +311,18 @@ def nbaTSearch():
       teamRoster.append(result['position'])
   cursor.close()
 
-  context = dict(data = teamRoster, team=tName)
+  q3="SELECT * FROM team WHERE teamid = %s AND leagueid=1"
+  cursor=g.conn.execute(q3, (tid2,))
+  predictions= []
+  for result in cursor:
+      predictions.append(result['wins'])
+      predictions.append(result['losses'])
+      predictions.append(result['ties'])
+      predictions.append(result['numberofchampionships'])
+      predictions.append(result['probofwinningchmp'])
+  cursor.close()
+
+  context = dict(data = teamRoster, team=tName, preds=predictions)
   return render_template("nba-team-rosters.html", **context)
 
 
@@ -343,13 +370,13 @@ def nflPSearch():
   cursor.close()
 
   pid2 = pid[0]
-  print(pid2)
+  #print(pid2)
   q2 = "SELECT * FROM nflplayerstats WHERE playerid = %s ORDER BY year"
-  print q2
+  #print q2
   cursor = g.conn.execute(q2, (pid2,))
   playerStats = []
   for result in cursor:
-      print(result['year'])
+      #print(result['year'])
       #playerStats.append(pName)
       ga = Decimal(result['games'])
       
@@ -370,7 +397,24 @@ def nflPSearch():
       playerStats.append(result['mvp'])
   cursor.close()
 
-  context = dict(data = playerStats, player=pName)
+  q3 = "SELECT name FROM topplayer t1 WHERE t1.topplayerid = (SELECT topplayerid FROM predictions t2 WHERE t2.playerid= %s)"
+  cursor = g.conn.execute(q3, (pid2,))
+  playerPredictions = []
+  for result in cursor:
+    #print(result[0])
+    playerPredictions.append(result[0])
+  cursor.close()
+  
+  q4 = "SELECT * FROM predictions  WHERE playerid= %s"
+
+  cursor = g.conn.execute(q4, (pid2,))
+  for result in cursor:
+      playerPredictions.append(result['similarityscore'])
+      playerPredictions.append(result['probofallstar'])
+      playerPredictions.append(result['probofmvp'])
+  cursor.close()
+
+  context = dict(data = playerStats, player=pName, preds=playerPredictions)
   return render_template("nfl-player-stats.html", **context)
 
 @app.route('/nfl-team.html', methods=["POST", "GET"])
@@ -389,8 +433,8 @@ def nflTeam():
 def nflTSearch():
   tName = request.form['tName']
   q = "SELECT teamid FROM team WHERE name = %s"
-  print(tName)
-  print q
+  #print(tName)
+  #print q
   tid = [] 
   
   cursor = g.conn.execute(q, (tName,))
@@ -399,9 +443,9 @@ def nflTSearch():
   cursor.close()
 
   tid2 = tid[0]
-  print(tid2)
+  #print(tid2)
   q2 = "SELECT * FROM player WHERE  teamid = %s AND leagueid = 0"
-  print q2
+  #print q2
   cursor = g.conn.execute(q2, (tid2,))
   teamRoster = []
   for result in cursor:
@@ -410,7 +454,18 @@ def nflTSearch():
       teamRoster.append(result['position'])
   cursor.close()
 
-  context = dict(data = teamRoster, team=tName)
+  q3="SELECT * FROM team WHERE teamid = %s AND leagueid=0"
+  cursor=g.conn.execute(q3, (tid2,))
+  predictions= []
+  for result in cursor:
+      predictions.append(result['wins'])
+      predictions.append(result['losses'])
+      predictions.append(result['ties'])
+      predictions.append(result['numberofchampionships'])
+      predictions.append(result['probofwinningchmp'])
+  cursor.close()
+
+  context = dict(data = teamRoster, team=tName, preds=predictions)
   return render_template("nfl-team-rosters.html", **context)
 
 if __name__ == "__main__":
