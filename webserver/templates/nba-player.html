@@ -20,17 +20,25 @@
         <div class="jumbotron"> 
             <div class="greetings container"> 
                 <h2>
-                    Please select a player from our database.
+                    Please select an NBA player from our database.
                 </h2>
 
-                <form>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle= "dropdown"> NBA Players
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                <form action="nbaPSearch" method="POST">
+                    <div class="row" style="text-align: center; margin:0px auto">
+                        <div class="dropdown col-md-4"></div>
+                            <!--button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> NBA Players
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                {% for n in data %}
+                                <li>{{n}}</li> 
+                                {% endfor %}
+                            </ul-->
+                        <select class="form-control col-md-1" style="width:200px" name="pName">
                             {% for n in data %}
-                            <li>{{n}}</li> 
-                        </ul>
+                            <option value="{{n}}">{{n}}</option> 
+                            {% endfor %}
+                        </select> 
+                        <input type="submit" class="btn btn-info col-md-1" value="Submit">
                     </div>
                 </form>
                     <!--select class="form-control col-md-1" style="width:auto" id="league-type">     
@@ -46,6 +54,6 @@
     <div id="footer">
     </div>
 </body>
-<script src="https://maxcdn.bootsrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11./jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootsrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

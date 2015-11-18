@@ -14,7 +14,7 @@ Go to http://localhost:8111 in your browser
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 
-eugene wu 2015
+bam2189 2015
 """
 
 import os
@@ -202,6 +202,113 @@ def nba():
   context = dict(data = leagueInfo)
   return render_template("nba.html", **context)
 
+@app.route('/nba-player.html', methods=["POST", "GET"])
+def nbaPlayer():
+  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=1")
+  #cursor = g.conn.execute("SELECT *  FROM sportsleague2")
+  nbaPlayers = []
+  for result in cursor:
+      nbaPlayers.append(result['name'])
+  cursor.close()
+
+  context = dict(data = nbaPlayers)
+  return render_template("nba-player.html", **context)
+
+@app.route('/nbaPSearch', methods=["POST"])
+def nbaPSearch():
+  pName = request.form['pName']
+  q = "SELECT playerid FROM player WHERE name = %s "
+  print(pName)
+  print q
+  pid = [] 
+  
+  cursor = g.conn.execute(q, (pName,))
+  for result in cursor:
+      pid.append(result[0])
+  cursor.close()
+
+  pid2 = pid[0]
+  print(pid2)
+  q2 = "SELECT * FROM nbaplayerstats WHERE playerid = %s ORDER BY year"
+  print q2
+  cursor = g.conn.execute(q2, (pid2,))
+  playerStats = []
+  for result in cursor:
+      print(result['year'])
+      #playerStats.append(pName)
+      playerStats.append(result['year'])
+      playerStats.append(result['turnovers'])
+      playerStats.append(result['steals'])
+      playerStats.append(result['blks'])
+      playerStats.append(result['pts'])
+      playerStats.append(result['fgm'])
+      playerStats.append(result['fga'])
+      playerStats.append(result['tpm'])
+      playerStats.append(result['tpa'])
+      playerStats.append(result['ftm'])
+      playerStats.append(result['fta'])
+      playerStats.append(result['rebs'])
+      playerStats.append(result['assists'])
+      playerStats.append(result['allstar'])
+      playerStats.append(result['mvp'])
+  cursor.close()
+
+  context = dict(data = playerStats, player=pName)
+  return render_template("nba-player-stats.html", **context)
+
+@app.route('/nbaTSearch', methods=["POST"])
+def nbaTSearch():
+  tName = request.form['tName']
+  q = "SELECT teamid FROM team WHERE name = %s"
+  print(tName)
+  print q
+  tid = [] 
+  
+  cursor = g.conn.execute(q, (tName,))
+  for result in cursor:
+      tid.append(result[0])
+  cursor.close()
+
+  tid2 = tid[0]
+  print(tid2)
+  q2 = "SELECT * FROM player WHERE  teamid = %s AND leagueid = 1"
+  print q2
+  cursor = g.conn.execute(q2, (tid2,))
+  teamRoster = []
+  for result in cursor:
+      #print(result['year'])
+      teamRoster.append(result['name'])
+      teamRoster.append(result['position'])
+      #playerStats.append(result['turnovers'])
+      #playerStats.append(result['steals'])
+      #playerStats.append(result['blks'])
+      #playerStats.append(result['pts'])
+      #playerStats.append(result['fgm'])
+      #playerStats.append(result['fga'])
+      #playerStats.append(result['tpm'])
+      #playerStats.append(result['tpa'])
+      #playerStats.append(result['ftm'])
+      #playerStats.append(result['fta'])
+      #playerStats.append(result['rebs'])
+      #playerStats.append(result['assists'])
+      #playerStats.append(result['allstar'])
+      #playerStats.append(result['mvp'])
+  cursor.close()
+
+  context = dict(data = teamRoster, team=tName)
+  return render_template("nba-team-rosters.html", **context)
+
+@app.route('/nba-team.html', methods=["POST", "GET"])
+def nbaTeam():
+  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=1")
+  nbaTeams = []
+  for result in cursor:
+      nbaTeams.append(result['name'])
+  cursor.close()
+
+  context = dict(data = nbaTeams)
+  return render_template("nba-team.html", **context)
+
 @app.route('/nfl.html', methods=["POST", "GET"])
 def nfl():
   cursor = g.conn.execute("SELECT *  FROM sportsleague WHERE name='NFL'")
@@ -218,17 +325,29 @@ def nfl():
   context = dict(data = leagueInfo)
   return render_template("nfl.html", **context)
 
-@app.route('/nba-player.html', methods=["POST", "GET"])
-def nbaPlayer():
-  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=1")
-  nbaPlayers = []
+@app.route('/nfl-player.html', methods=["POST", "GET"])
+def nflPlayer():
+  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=0")
+  #cursor = g.conn.execute("SELECT *  FROM sportsleague2")
+  nflPlayers = []
   for result in cursor:
-      nbaPlayers.append(result['name'])
+      nflPlayers.append(result['name'])
   cursor.close()
 
-  context = dict(data = nbaPlayers)
-  return render_template("nba-player.html", **context)
+  context = dict(data = nflPlayers)
+  return render_template("nfl-player.html", **context)
 
+@app.route('/nfl-team.html', methods=["POST", "GET"])
+def nflTeam():
+  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=0")
+  #cursor = g.conn.execute("SELECT *  FROM sportsleague2")
+  nflTeams = []
+  for result in cursor:
+      nflTeams.append(result['name'])
+  cursor.close()
+
+  context = dict(data = nflTeams)
+  return render_template("nfl-team.html", **context)
 
 if __name__ == "__main__":
   import click

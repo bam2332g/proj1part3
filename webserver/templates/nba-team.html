@@ -20,33 +20,27 @@
         <div class="jumbotron"> 
             <div class="greetings container"> 
                 <h2>
-                    Here's some info about the NBA...                   
+                    Please select an NBA team from our database.
                 </h2>
-                <h2> 
-                    The average years of experience is {{ data.1 }} years.<br>
-                    The number of players on a team are {{ data.2}} players.<br>
-                    Players on average are {{ data.3 }} years old.<br>
-                    Average age of teams are {{ data.4 }}.<br>
-                    The average win perentage in the league is {{ data.5 }}.<br>
-                </h2>
-                <!-- INFO ABOUT THE NBA IN A TABLE OR STATEMENT-->
-                <p class="paragraph"> bruh we made it</p>                
-                <h2>
-                    Which would you like to learn more about, a team or player?
-                </h2>   
-                <div class="form-group col-md-offset-5" style="min-width: 700px" id="searchdiv">
-                    <label for="league_type"></label> 
-                    <br>
-                    <div class="row" style="width:auto">
-                        <a href="nba-player.html" >
-                            <button type="button" class="btn btn-info">Player</button>
-                        </a> 
-                        <a class="col-md-1" href="">
-                        </a>
-                        <a href="nba-team.html">
-                            <button type="button" class="btn btn-info">Team</button>
-                        </a> 
-                    </div>   
+
+                <form action="nbaTSearch" method="POST">
+                    <div class="row" style="text-align: center; margin:0px auto">
+                        <div class="dropdown col-md-4"></div>
+                            <!--button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> NBA Players
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                {% for n in data %}
+                                <li>{{n}}</li> 
+                                {% endfor %}
+                            </ul-->
+                        <select class="form-control col-md-1" style="width:200px" name="tName">
+                            {% for n in data %}
+                            <option value="{{n}}">{{n}}</option> 
+                            {% endfor %}
+                        </select> 
+                        <input type="submit" class="btn btn-info col-md-1" value="Submit">
+                    </div>
+                </form>
                     <!--select class="form-control col-md-1" style="width:auto" id="league-type">     
                         {% for n in data %}
                         <option> {{n}} </option> 
@@ -60,6 +54,6 @@
     <div id="footer">
     </div>
 </body>
-<script src="https://maxcdn.bootsrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11./jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootsrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
