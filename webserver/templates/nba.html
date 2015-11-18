@@ -20,19 +20,31 @@
         <div class="jumbotron"> 
             <div class="greetings container"> 
                 <h2>
-                    what sports league would you like to know about?                    
+                    Here's some info about the NBA...                   
+                </h2>
+                <h2> 
+                    The average years of experience is {{ data.1 }} years.<br>
+                    The number of players on a team are {{ data.2}} players.<br>
+                    Players on average are {{ data.3 }} years old.<br>
+                    Average age of teams are {{ data.4 }}.<br>
+                    The average win perentage in the league is {{ data.5 }}.<br>
+                </h2>
+                <!-- INFO ABOUT THE NBA IN A TABLE OR STATEMENT-->
+                <p class="paragraph"> bruh we made it</p>                
+                <h2>
+                    Which would you like to learn more about, a team or player?
                 </h2>   
                 <div class="form-group col-md-offset-5" style="min-width: 700px" id="searchdiv">
                     <label for="league_type"></label> 
                     <br>
                     <div class="row" style="width:auto">
-                        <a href="nba.html" >
-                            <button type="button" class="btn btn-info">NBA</button>
+                        <a href="nba-player.html" >
+                            <button type="button" class="btn btn-info">Player</button>
                         </a> 
                         <a class="col-md-1" href="">
                         </a>
-                        <a href="nfl.html">
-                            <button type="button" class="btn btn-info">NFL</button>
+                        <a href="nba-team.html">
+                            <button type="button" class="btn btn-info">Team</button>
                         </a> 
                     </div>   
                     <!--select class="form-control col-md-1" style="width:auto" id="league-type">     

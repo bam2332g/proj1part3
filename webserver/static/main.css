@@ -1,3 +1,4 @@
+
 hr {
     height:1px;
     color: #333;
@@ -8,6 +9,12 @@ h2 {
     text-align: center;
     color: #FFFFFF;
     padding-top: 35px;
+}
+
+p.paragraph {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 #searchdiv {
@@ -40,3 +47,4 @@ input[type="text"] {
     width: 170px;
     padding: 3px 23px 3px 8px;
 }
+

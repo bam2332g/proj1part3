@@ -137,8 +137,7 @@ def index():
   #
   # example of a database query
   #
-  print('wassup')
-  cursor = g.conn.execute("SELECT *  FROM sportsleague2")
+  cursor = g.conn.execute("SELECT *  FROM sportsleague")
   names = []
   for result in cursor:
     names.append(result['leagueid'])  # can also be accessed using result[0]
@@ -184,12 +183,52 @@ def index():
 # 
 #     localhost:8111/another/
 #
-# notice that the functio name is another() rather than index()
+# notice that the function name is another() rather than index()
 # the functions for each app.route needs to have different names
 #
-@app.route('/another/', methods=["POST", "GET"])
-def another():
-  return render_template("anotherfile.html")
+@app.route('/nba.html', methods=["POST", "GET"])
+def nba():
+  cursor = g.conn.execute("SELECT *  FROM sportsleague WHERE name='NBA'")
+  leagueInfo = []
+  for result in cursor:
+    leagueInfo.append(result['leagueid'])# can also be accessed using result[0]
+    leagueInfo.append(result['avgyrsofexp'])
+    leagueInfo.append(result['numofplyronteam'])
+    leagueInfo.append(result['avgageofplyr'])
+    leagueInfo.append(result['avgageofteam'])
+    leagueInfo.append(result['avgwinpct'])
+  cursor.close()
+
+  context = dict(data = leagueInfo)
+  return render_template("nba.html", **context)
+
+@app.route('/nfl.html', methods=["POST", "GET"])
+def nfl():
+  cursor = g.conn.execute("SELECT *  FROM sportsleague WHERE name='NFL'")
+  leagueInfo = []
+  for result in cursor:
+    leagueInfo.append(result['leagueid'])# can also be accessed using result[0]
+    leagueInfo.append(result['avgyrsofexp'])
+    leagueInfo.append(result['numofplyronteam'])
+    leagueInfo.append(result['avgageofplyr'])
+    leagueInfo.append(result['avgageofteam'])
+    leagueInfo.append(result['avgwinpct'])
+  cursor.close()
+
+  context = dict(data = leagueInfo)
+  return render_template("nfl.html", **context)
+
+@app.route('/nba-player.html', methods=["POST", "GET"])
+def nbaPlayer():
+  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=1")
+  nbaPlayers = []
+  for result in cursor:
+      nbaPlayers.append(result['name'])
+  cursor.close()
+
+  context = dict(data = nbaPlayers)
+  return render_template("nba-player.html", **context)
+
 
 if __name__ == "__main__":
   import click

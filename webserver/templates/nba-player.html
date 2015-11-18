@@ -20,21 +20,19 @@
         <div class="jumbotron"> 
             <div class="greetings container"> 
                 <h2>
-                    what sports league would you like to know about?                    
-                </h2>   
-                <div class="form-group col-md-offset-5" style="min-width: 700px" id="searchdiv">
-                    <label for="league_type"></label> 
-                    <br>
-                    <div class="row" style="width:auto">
-                        <a href="nba.html" >
-                            <button type="button" class="btn btn-info">NBA</button>
-                        </a> 
-                        <a class="col-md-1" href="">
-                        </a>
-                        <a href="nfl.html">
-                            <button type="button" class="btn btn-info">NFL</button>
-                        </a> 
-                    </div>   
+                    Please select a player from our database.
+                </h2>
+
+                <form>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle= "dropdown"> NBA Players
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            {% for n in data %}
+                            <li>{{n}}</li> 
+                        </ul>
+                    </div>
+                </form>
                     <!--select class="form-control col-md-1" style="width:auto" id="league-type">     
                         {% for n in data %}
                         <option> {{n}} </option> 
