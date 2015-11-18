@@ -8,7 +8,7 @@ div .jumbotron {
     background-size: cover;
     background-repeat: no-repeat;
     height: 800px;
-    background-blend-mode: normal;
+    background-blend-mode: luminosity;
 }
 
 input[type="text"] {
@@ -34,22 +34,22 @@ h1 {
     font-family: 'Raleway', sans-serif;
     text-align: center;
     color: #FFFFFF;
-    padding-top: 35px;
+    padding-top: 20px;
 }
 
 h2 {
     font-family: 'Raleway', sans-serif;
     text-align: center;
     color: #FFFFFF;
-    padding-top: 35px;
+    padding-top: 20px;
 }
 
 #player {
-    font-size: 70px;
+    font-size: 50px;
 }
 
 #team {
-    font-size: 70px;
+    font-size: 50px;
 }
 
 p.paragraph {

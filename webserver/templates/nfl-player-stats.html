@@ -20,31 +20,29 @@
         <div class="jumbotron"> 
             <div class="greetings container"> 
                 <div>
-                    <a href="nba-player.html" value="Back" class="btn btn-default col-md-1">Back</a>
-                </div>
+                    <a class="btn btn-default col-md-1" value="Back" href="nfl-player.html">Back</a>
                 <h2 id="player">{{player}}'s Stats Per Game</h2>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Year</th> 
-                            <th>Turnovers</th> 
-                            <th>Steals</th> 
-                            <th>Blocks</th> 
-                            <th>Points</th> 
-                            <th>FGM</th> 
-                            <th>FGA</th> 
-                            <th>TPM</th> 
-                            <th>TPA</th> 
-                            <th>FTM</th> 
-                            <th>FTA</th> 
-                            <th>Rebounds</th> 
-                            <th>Assists</th> 
-                            <th>All-Star?</th> 
+                            <th>Year</th>
+                            <th>QB Yds Thrown</th> 
+                            <th>Interceptions</th> 
+                            <th>Sacks</th> 
+                            <th>QB Compl</th> 
+                            <th>QB Att</th> 
+                            <th>QBR</th> 
+                            <th>Rush Att</th> 
+                            <th>Rush Yds</th> 
+                            <th>Rec</th> 
+                            <th>Rec Yds</th> 
+                            <th>TD's</th> 
+                            <th>ProBowl?</th> 
                             <th>MVP?</th> 
                         </tr>
                     </thead>
                     <tbody>
-                        {% for n_row in data | batch(15, '&nbsp;') %}
+                        {% for n_row in data | batch(14, '&nbsp;') %}
                         <tr> 
                             {% for n in n_row %}      
                             <td>{{n}}</td>

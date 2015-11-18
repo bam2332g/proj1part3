@@ -19,11 +19,14 @@
     <div id="content">
         <div class="jumbotron"> 
             <div class="greetings container"> 
+                <div>
+                    <a href="nfl.html" value="Back" class="btn btn-default col-md-1">Back</a>
+                </div>
                 <h2>
                     Please select an NFL player from our database.
                 </h2>
 
-                <form>
+                <form action="nflPSearch" method="POST">
                     <div class="row" style="text-align: center; margin:0px auto">
                         <div class="dropdown col-md-4"></div>
                             <!--button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> NBA Players
@@ -33,7 +36,7 @@
                                 <li>{{n}}</li> 
                                 {% endfor %}
                             </ul-->
-                        <select class="form-control col-md-1" style="width:200px" >
+                        <select class="form-control col-md-1" style="width:200px" name="pName">
                             {% for n in data %}
                             <option value="{{n}}">{{n}}</option> 
                             {% endfor %}
