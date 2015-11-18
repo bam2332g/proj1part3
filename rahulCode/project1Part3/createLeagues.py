@@ -1,0 +1,19 @@
+nfl={
+	leagueID=0,
+	name="NFL",
+	avgYrsOfExp=5.06
+	numOfPlyrOnTeam=53
+	avgAgeOfPlayer=27.01
+	avgAgeOfTeam=27.02
+	avgWinPct=0.501
+}
+
+nba={
+	leagueID=1,
+	name="NBA",
+	avgYrsOfExp=5.3,
+	numOfPlyrOnTeam=15,
+	avgAgeOfPlayer=27.68
+	avgAgeOfTeam=27.62
+	avgWinPct=0.494
+}
