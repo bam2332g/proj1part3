@@ -204,7 +204,7 @@ def nba():
 
 @app.route('/nba-player.html', methods=["POST", "GET"])
 def nbaPlayer():
-  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=1")
+  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=1 ORDER BY name")
   #cursor = g.conn.execute("SELECT *  FROM sportsleague2")
   nbaPlayers = []
   for result in cursor:
@@ -277,7 +277,7 @@ def nbaPSearch():
 
 @app.route('/nba-team.html', methods=["POST", "GET"])
 def nbaTeam():
-  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=1")
+  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=1 ORDER BY name")
   nbaTeams = []
   for result in cursor:
       nbaTeams.append(result['name'])
@@ -344,8 +344,7 @@ def nfl():
 
 @app.route('/nfl-player.html', methods=["POST", "GET"])
 def nflPlayer():
-  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=0")
-  #cursor = g.conn.execute("SELECT *  FROM sportsleague2")
+  cursor = g.conn.execute("SELECT *  FROM player WHERE leagueid=0 ORDER BY name")
   nflPlayers = []
   for result in cursor:
       nflPlayers.append(result['name'])
@@ -419,7 +418,7 @@ def nflPSearch():
 
 @app.route('/nfl-team.html', methods=["POST", "GET"])
 def nflTeam():
-  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=0")
+  cursor = g.conn.execute("SELECT *  FROM team WHERE leagueid=0 ORDER BY name")
   nflTeams = []
   for result in cursor:
       nflTeams.append(result['name'])
